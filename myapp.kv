@@ -1,75 +1,132 @@
+<Label>:
+    color: 0, 0, 0, 1  # 모든 Label의 기본 텍스트 색상을 검정색으로 설정
+    font_name: "C:/Windows/Fonts/gulim.ttc"
+<TextInput>:
+    font_name: "C:/Windows/Fonts/gulim.ttc"
 <MyApp>:
+    canvas.before:
+        Color:
+            rgba: 0.98, 0.94, 0.88, 1  # 연한 베이지색 배경
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     BoxLayout:
         orientation: "vertical"
 
         # 헤더 영역
         BoxLayout:
             size_hint_y: 0.1
-            padding: [10, 10]
+            padding: [10, 10, 10, 10]
             canvas.before:
                 Color:
-                    rgba: 0.2, 0.6, 0.8, 1
+                    rgba: 0.8, 0.4, 0.4, 1  # 따뜻한 핑크색
                 Rectangle:
                     pos: self.pos
                     size: self.size
             Label:
-                text: "아이들을 위한 동화책 AI 메이커" 
-                font_size: 24
-                bold: True
-                color: 1, 1, 1, 1
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
-
-        # 줄거리 입력 영역
-        BoxLayout:
-            orientation: "horizontal"
-            size_hint_y: 0.2
-            padding: [10, 10]
-
-
-            TextInput:
-                id: story_input
-                hint_text: "상상의 나래를 펼쳐보세요. \n 이곳에 줄거리를 입력하세요..."
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
-                multiline: True
-                font_size: 18
+                text: '[b]아이들을 위한 동화책 AI 메이커[/b]'
+                font_size: 28  # 제목을 강조하기 위해 크기를 조금 키움
+                markup: True  # 마크업 사용 활성화
+                color: 1, 1, 1, 1  # 기본 텍스트 색상 (마크업 색상은 따로 적용됨)
+                halign: "center"  # 텍스트를 중앙 정렬
+                valign: "middle"  # 텍스트를 수직 중앙 정렬
+                text_size: self.size  # 텍스트 크기를 Label 크기에 맞춤
+                
 
         BoxLayout:
             orientation: "vertical"
+            size_hint_y: 0.4
+            # 줄거리 입력 영역
+            BoxLayout:
+                orientation: "horizontal"
+                padding: [0, 10, 10, 10]
+                # canvas.before:
+                #     Rectangle:
+                #         pos: self.pos
+                #         size: self.size
+                Label:
+                    text: "동화책 줄거리"
+                    font_size: 18
+                    size_hint_x: 0.2
+                    halign: 'center'
+                    valign: 'middle'
+                    text_size: self.size
+
+                TextInput:
+                    id: story_input
+                    hint_text: "Enter your story outline here..."
+                    multiline: True
+                    font_size: 18
+                    background_color: 1, 1, 1, 1  # 흰색 배경
+                    foreground_color: 0, 0, 0, 1  # 검정색 텍스트
+                    
+
+            BoxLayout:
+                orientation: "horizontal"
+                padding: [0, 0, 10, 10]
+                Label:
+                    text: "캐릭터들의 이름"
+                    font_size: 18
+                    size_hint_x: 0.2
+                    halign: 'center'
+                    valign: 'middle'
+                    text_size: self.size
+
+                TextInput:
+                    id: character_name
+                    hint_text: "Enter characters' name here..."
+                    multiline: False
+                    font_size: 18
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+
+            BoxLayout:
+                orientation: "horizontal"
+                padding: [0, 0, 10, 10]
+                Label:
+                    text: "캐릭터들의 외모"
+                    font_size: 18
+                    size_hint_x: 0.2
+                    halign: 'center'
+                    valign: 'middle'
+                    text_size: self.size
+
+                TextInput:
+                    id: character_description
+                    hint_text: "Enter characters' appearance description here..."
+                    multiline: False
+                    font_size: 18
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+
+        Button:
+            text: "스토리 생성 버튼"
             size_hint_y: 0.1
-            padding: [10, 10]
-
-
-            Button:
-                text: "이야기 생성"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
-                on_press: root.generate_story(step="story")
-                size_hint_y: 0.2
+            background_color: 0.9, 0.9, 0.98, 1  # 연한 파스텔 블루
+            color: 1, 1, 1, 1  # 흰색 텍스트
+            on_press: root.generate_story(step="story")
 
         ScrollView:
-            size_hint_y: 0.3
-            do_scroll_x: False
-            do_scroll_y: True
-
+            size_hint_y: 0.4
+            do_scroll: True, True
+            spacing: 10
             Label:
                 id: story_output
-                text: "  여기에 AI가 생성한 이야기가 표시됩니다."
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                text: " The AI-generated story will be displayed here."
+                valign: 'middle'
                 font_size: 16
-                markup: True
                 text_size: self.width, None
-                height: self.texture_size[1]    
-                        
-        # AI 생성 버튼 영역
-        BoxLayout:
-            size_hint_y: 0.2
-            spacing: 10
-            padding: [10, 10]
+                size_hint_y: None
+                height: self.texture_size[1]
 
-            Button:
-                text: "동화책 만들기"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
-                on_press: root.generate_story(step="book")
-                size_hint_y: 0.3
+        # AI 생성 버튼 영역
+        Button:
+            text: "동화책 생성 버튼"
+            size_hint_y: 0.1
+            background_color: 0.9, 0.9, 0.98, 1  # 연한 파스텔 블루
+            color: 1, 1, 1, 1
+            on_press: root.generate_story(step="book")
 
         # 결과 영역
         BoxLayout:
@@ -77,58 +134,59 @@
             size_hint_y: 0.9
             padding: [10, 10]
             spacing: 10
-
             Image:
                 id: illustration_output
                 source: ""
-                size_hint: None, None
-                size: 300, 300
+                size_hint: 1, 0.7
                 allow_stretch: True
                 keep_ratio: True
-                pos_hint: {"center_x": 0.5, "center_y": 0.5}  # 화면 중앙에 배치
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
             ScrollView:
                 size_hint_x: 1
-                size_hint_y: 0.3
+                size_hint_y: 0.25
                 do_scroll_x: False
                 do_scroll_y: True
                 Label:
                     id: story_output_page
                     text: "첫 번째 페이지"
-                    font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
                     font_size: 16
                     markup: True
                     text_size: self.width, None
-                    size_hint_y: None
-                    height: self.texture_size[1]
+
             Button:
                 text: "오디오북 듣기"
                 size_hint_x: 1
-                size_hint_y:0.1
+                size_hint_y: 0.1
+                background_color: 0.9, 0.9, 0.98, 1  # 연한 파스텔 블루
+                color: 1, 1, 1, 1
                 on_press: root.text_to_speech()
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+
         # 하단 내비게이션
         BoxLayout:
             size_hint_y: 0.1
             spacing: 5
             padding: [5, 5]
-
             Button:
                 text: "이전"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                background_color: 0.8, 0.7, 0.9, 1  # 밝은 라일락색
+                color: 1, 1, 1, 1
                 on_press: root.previous_page()
 
             Button:
                 text: "PDF 저장"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                background_color: 0.7, 0.8, 0.9, 1  # 밝은 파스텔 블루
+                color: 1, 1, 1, 1
                 on_press: root.save_to_pdf()
 
             Button:
                 text: "공유"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                background_color: 0.8, 0.9, 0.7, 1  # 밝은 파스텔 그린
+                color: 1, 1, 1, 1
                 on_press: root.share_pdf()
 
             Button:
                 text: "다음"
-                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                background_color: 0.9, 0.7, 0.7
+                color: 1, 1, 1, 1
                 on_press: root.next_page()
