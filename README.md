@@ -11,17 +11,17 @@ An interactive Kivy application that helps users create children's storybooks wi
         <img src="./image/1.PNG" />
     </td>
     <td align="center">
-        <h3>Insert Operation</h3>
+        <h3>Operation 1</h3>
         <img src="./image/2.PNG" />
     </td>
 </tr>
 <tr>
     <td align="center">
-        <h3>Update Operation</h3>
+        <h3>Operation 2</h3>
         <img src="./image/3.PNG"/>
     </td>
     <td align="center">
-        <h3>Delete Operation</h3>
+        <h3>Operation 3</h3>
         <img src="./image/4.PNG"/>
     </td>
 </tr>
@@ -116,7 +116,7 @@ An interactive Kivy application that helps users create children's storybooks wi
 4. Push to the branch: ```git push origin feature/your-feature-name```
 5. Open a pull request.
 
-## 라이선스 📝
+## LICENSE 📝
 This project is licensed under the MIT License. See [LICENSE](./LICENSE) for more details. 
 </details>
    
