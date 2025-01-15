@@ -10,21 +10,21 @@ An interactive Kivy application that helps users create children's storybooks wi
 <tr>
     <td align="center">
         <h3>Home Screen</h3>
-        <img src="./image/1.PNG" width="300" height="600"/>
+        <img src="./image/1.PNG" />
     </td>
     <td align="center">
         <h3>Insert Operation</h3>
-        <img src="./image/2.PNG" width="300" height="600"/>
+        <img src="./image/2.PNG" />
     </td>
 </tr>
 <tr>
     <td align="center">
         <h3>Update Operation</h3>
-        <img src="./image/3.PNG" width="300" height="600"/>
+        <img src="./image/3.PNG"/>
     </td>
     <td align="center">
         <h3>Delete Operation</h3>
-        <img src="./image/4.PNG" width="300" height="600"/>
+        <img src="./image/4.PNG"/>
     </td>
 </tr>
 </table>
