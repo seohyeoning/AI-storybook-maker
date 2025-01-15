@@ -1,0 +1,134 @@
+<MyApp>:
+    BoxLayout:
+        orientation: "vertical"
+
+        # 헤더 영역
+        BoxLayout:
+            size_hint_y: 0.1
+            padding: [10, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.6, 0.8, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: "아이들을 위한 동화책 AI 메이커" 
+                font_size: 24
+                bold: True
+                color: 1, 1, 1, 1
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+
+        # 줄거리 입력 영역
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.2
+            padding: [10, 10]
+
+
+            TextInput:
+                id: story_input
+                hint_text: "상상의 나래를 펼쳐보세요. \n 이곳에 줄거리를 입력하세요..."
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                multiline: True
+                font_size: 18
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.1
+            padding: [10, 10]
+
+
+            Button:
+                text: "이야기 생성"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.generate_story(step="story")
+                size_hint_y: 0.2
+
+        ScrollView:
+            size_hint_y: 0.3
+            do_scroll_x: False
+            do_scroll_y: True
+
+            Label:
+                id: story_output
+                text: "  여기에 AI가 생성한 이야기가 표시됩니다."
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                font_size: 16
+                markup: True
+                text_size: self.width, None
+                height: self.texture_size[1]    
+                        
+        # AI 생성 버튼 영역
+        BoxLayout:
+            size_hint_y: 0.2
+            spacing: 10
+            padding: [10, 10]
+
+            Button:
+                text: "동화책 만들기"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.generate_story(step="book")
+                size_hint_y: 0.3
+
+        # 결과 영역
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.9
+            padding: [10, 10]
+            spacing: 10
+
+            Image:
+                id: illustration_output
+                source: ""
+                size_hint: None, None
+                size: 300, 300
+                allow_stretch: True
+                keep_ratio: True
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}  # 화면 중앙에 배치
+
+            ScrollView:
+                size_hint_x: 1
+                size_hint_y: 0.3
+                do_scroll_x: False
+                do_scroll_y: True
+                Label:
+                    id: story_output_page
+                    text: "첫 번째 페이지"
+                    font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                    font_size: 16
+                    markup: True
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: self.texture_size[1]
+            Button:
+                text: "오디오북 듣기"
+                size_hint_x: 1
+                size_hint_y:0.1
+                on_press: root.text_to_speech()
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+        # 하단 내비게이션
+        BoxLayout:
+            size_hint_y: 0.1
+            spacing: 5
+            padding: [5, 5]
+
+            Button:
+                text: "이전"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.previous_page()
+
+            Button:
+                text: "PDF 저장"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.save_to_pdf()
+
+            Button:
+                text: "공유"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.share_pdf()
+
+            Button:
+                text: "다음"
+                font_name: "C:/Windows/Fonts/gulim.ttc"  # 한글 폰트 파일 경로
+                on_press: root.next_page()
