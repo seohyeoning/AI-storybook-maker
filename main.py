@@ -75,14 +75,21 @@ class MyApp(BoxLayout):
                 
     def generate_story(self, step):
         if step == "story":
-            input_story = f"{self.ids.story_input.text}"
-
+            input_story = self.ids.story_input.text.strip()
+            character_name = self.ids.character_name.text.strip()
+            character_description = self.ids.character_description.text.strip()
+            
             prompt = (
                 "아래 입력을 참고하여, 어린이를 위한 4쪽짜리 그림책 이야기를 작성해주세요. "
                 "각 페이지는 간결하고 감성적으로 작성되며, 어린이가 이해하기 쉬운 언어를 사용해주세요. "
-                "입력에 따라 창의적으로 이야기를 구성해주세요.\n\n"
+                "입력에 따라 창의적으로 이야기를 구성해주세요."
+                "주요 캐릭터의 이름과 외형 특징도 반영해주세요. \n\n"
+
                 "### 입력:\n"
                 f"{input_story}\n\n"
+                f"캐릭터 이름: {character_name}\n"
+                f"캐릭터 외형: {character_description}\n\n"
+                
                 "### 형식:\n"
                 "- 페이지 1: 이야기를 시작하는 도입부.\n"
                 "- 페이지 2: 주요 캐릭터가 만나는 순간.\n"
@@ -125,20 +132,27 @@ class MyApp(BoxLayout):
             for page in self.pages:
                 self.generate_image(page["text"], page["page_name"])
             
-                
+
 
     def generate_image(self, text, page_name):
-        # OpenAI API 프롬프트
+
+        character_name = self.ids.character_name.text.strip()
+        character_description = self.ids.character_description.text.strip()
+    
         prompt = (
             f"Create an illustration for a children's storybook. The page text is: {text}. "
             "The illustration should match the text and be colorful, warm, and suitable for a children's storybook."
+            f"Create an illustration for a children's storybook. The illustration should depict the character "
+            f"named {character_name} with the following appearance: {character_description}. "
+            f"The page text is: {text}. The illustration should match the text and be colorful, warm, "
+            f"and suitable for a children's storybook."
         )
         try:
             # OpenAI API 호출
             response = client.images.generate(
                 model="dall-e-3",
                 prompt=prompt, 
-                size="1024x1024",# 1024x1024
+                size="1792x1024",# 1024x1024
                 quality="standard", # hd
                 n=1, # 이미지 개수
             )
@@ -228,16 +242,22 @@ class MyApp(BoxLayout):
     def update_page_display(self):
         if self.pages:
             # 현재 페이지 데이터 가져오기
+            
             current_page = self.pages[self.current_page_index]
             self.ids.story_output_page.text = current_page["text"]
 
             # 이미지 업데이트
             image_path = f"{current_page['page_name'].replace(' ', '_')}.png"
+            print(f"Checking image path: {image_path}")  # 경로 확인 로그
+
             if os.path.exists(image_path):
+                print(f"Image found: {image_path}")  # 이미지가 존재하는지 확인
                 self.ids.illustration_output.source = image_path
             else:
+                print(f"Image not found: {image_path}")  # 이미지가 없을 때 로그
                 self.ids.illustration_output.source = ""
         else:
+            print("No pages available to display.")  # 페이지가 없는 경우 로그
             self.ids.story_output_page.text = "No story available."
             self.ids.illustration_output.source = ""
             
