@@ -4,8 +4,6 @@ An interactive Kivy application that helps users create children's storybooks wi
 # AI 동화책 메이커 📚🤖
 아이들을 위한 창의적인 동화책을 손쉽게 제작할 수 있는 Kivy 기반 애플리케이션입니다. AI를 활용하여 이야기를 작성하고, 그림을 생성하며, 음성으로 읽어주는 기능까지 제공합니다.
 
-## Screenshots
-
 <table>
 <tr>
     <td align="center">
