@@ -58,16 +58,13 @@ This project is licensed under the MIT License. See [LICENSE](./LICENSE) for mor
 - **텍스트 음성 변환(TTS)**: 동화 내용을 음성으로 들려줍니다.
 - **PDF 저장 및 공유**: 동화책을 PDF로 저장하고 공유할 수 있습니다.
 
----
-
 ## 사용된 API 및 라이브러리 📋
 - **OpenAI API**: GPT-4 모델을 이용한 스토리 생성 및 DALL-E 모델을 이용한 이미지 생성.
 - **ReportLab**: PDF 생성.
 - **Plyer**: 파일 저장 및 공유.
 - **Pygame**: 텍스트 음성 변환(TTS) 출력.
 - **Kivy**: GUI 개발.
-
----
+  
 
 ## 설치 및 실행 방법 ⚙️
 1. **필요 라이브러리 설치**
